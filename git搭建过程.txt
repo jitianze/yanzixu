@@ -1,0 +1,8 @@
+1.下载git安装。
+2.本地新建文件夹git_ck.
+3.进入git_ck文件夹执行初始化命令——git init
+4.在文件夹中新建文档1.txt
+5.进入github官网新建仓库yanzixu
+6.在git bush里执行生成密钥命令ssh-keygen -t rsa -C "youremail@example.com"
+7.在本地用户目录下找到公钥，添加到github官网。
+8.
