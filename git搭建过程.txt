@@ -15,23 +15,21 @@
   ssh-keygen -t rsa -C "youremail@example.com"
   
 4.找到公钥，复制到github
-
+mkdir gitck
+git init
 touch readme.txt
 vi readme.txt
 git add readme.txt
 git commit -m “描述”
 
+5.在本地的learngit仓库下运行命令：
 
+git remote add origin git@github.com:jitianze/yanzixu.git
 
+6.同步本地仓库与远程仓库
+git pull origin master
 
+7.推送本地仓库到远程仓库
 
-
-
-1.下载git安装。
-2.本地新建文件夹git_ck.
-3.进入git_ck文件夹执行初始化命令——git init
-4.在文件夹中新建文档1.txt
-5.进入github官网新建仓库yanzixu
-6.在git bush里执行生成密钥命令ssh-keygen -t rsa -C "youremail@example.com"
-7.在本地用户目录下找到公钥，添加到github官网。
-8.
+第一次：git push -u origin master
+之后： git push origin master
