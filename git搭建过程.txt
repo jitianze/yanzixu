@@ -1,8 +1,37 @@
-1.ÏÂÔØgit°²×°¡£
-2.±¾µØĞÂ½¨ÎÄ¼ş¼Ğgit_ck.
-3.½øÈëgit_ckÎÄ¼ş¼ĞÖ´ĞĞ³õÊ¼»¯ÃüÁî¡ª¡ªgit init
-4.ÔÚÎÄ¼ş¼ĞÖĞĞÂ½¨ÎÄµµ1.txt
-5.½øÈëgithub¹ÙÍøĞÂ½¨²Ö¿âyanzixu
-6.ÔÚgit bushÀïÖ´ĞĞÉú³ÉÃÜÔ¿ÃüÁîssh-keygen -t rsa -C "youremail@example.com"
-7.ÔÚ±¾µØÓÃ»§Ä¿Â¼ÏÂÕÒµ½¹«Ô¿£¬Ìí¼Óµ½github¹ÙÍø¡£
+## å®‰è£…git
+
+* ubantuä¸Šå®‰è£…gitåŠä½¿ç”¨
+
+1.sudo apt-get install git.
+
+2.è¿›è¡Œç®€å•é…ç½®
+
+  git config --global user.name "Your Name"
+  
+  git config --global user.email "email@example.com"
+  
+3.ç”Ÿæˆç§˜é’¥
+
+  ssh-keygen -t rsa -C "youremail@example.com"
+  
+4.æ‰¾åˆ°å…¬é’¥ï¼Œå¤åˆ¶åˆ°github
+
+touch readme.txt
+vi readme.txt
+git add readme.txt
+git commit -m â€œæè¿°â€
+
+
+
+
+
+
+
+1.ä¸‹è½½gitå®‰è£…ã€‚
+2.æœ¬åœ°æ–°å»ºæ–‡ä»¶å¤¹git_ck.
+3.è¿›å…¥git_ckæ–‡ä»¶å¤¹æ‰§è¡Œåˆå§‹åŒ–å‘½ä»¤â€”â€”git init
+4.åœ¨æ–‡ä»¶å¤¹ä¸­æ–°å»ºæ–‡æ¡£1.txt
+5.è¿›å…¥githubå®˜ç½‘æ–°å»ºä»“åº“yanzixu
+6.åœ¨git bushé‡Œæ‰§è¡Œç”Ÿæˆå¯†é’¥å‘½ä»¤ssh-keygen -t rsa -C "youremail@example.com"
+7.åœ¨æœ¬åœ°ç”¨æˆ·ç›®å½•ä¸‹æ‰¾åˆ°å…¬é’¥ï¼Œæ·»åŠ åˆ°githubå®˜ç½‘ã€‚
 8.
