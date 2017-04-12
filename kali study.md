@@ -165,7 +165,7 @@ arpspoof -i eth0 -t 192.168.1.100  192.168.1.1
 ettercap -Tq -i eth0（其中T代表以文本格式，q是以安静模式）
 当然也可以以图形化界面的方式来进行，最终截图的如下列：
  
-
+![http](yanzixu/picture/1.png)
 
 
 ## &.4：https 账号密码的截取
