@@ -118,6 +118,24 @@ update-rc.d ssh disabled // 关闭系统自动启动SSH服务
 ```
 完成以上步骤 且确保无误并拍摄快照
 
+#### 1.2.9 kali物理机声卡问题（亲测）
+
+#其实并不是不支持声卡驱动了。
+#只是root用户下默认关闭。
+```
+systemctl --user enable pulseaudio  
+```
+
+leafpad 编辑 /etc/default/pulseaudio 写入以下两行即可。
+#root下是默认关闭声卡驱动的， 开机自动开启
+```
+PULSEAUDIO_SYSTEM_START=1
+DISALLOW_MODULE_LOADING=0
+```
+reboot
+
+
+
 
 # &.Kali系统渗透实战教程
 
