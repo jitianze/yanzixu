@@ -86,8 +86,16 @@ apt-get install network-manager-vpnc-gnome
 ```
 #### 1.2.5安装 flash 
 ```
+方法一：物理机不一定有用
 apt-get install flashplugin-nonfree
 update-flashplugin-nonfree --install
+
+方法二：
+下载flash linux压缩包
+解压后进入文件夹
+cp libflashplayer.so /usr/lib/mozilla/plugins/
+cp -r usr/* /usr
+
 ```
 #### 1.2.6安装nload流量分析工具
 ```
