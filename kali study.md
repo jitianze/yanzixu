@@ -195,3 +195,17 @@ ettercap -Tq -i eth0（其中T代表以文本格式，q是以安静模式）
 
 
 ## &.4：https 账号密码的截取
+
+
+
+
+
+
+
+## kali启动metasploit framework
+kali 2.0 已经没有metasploit 这个服务了，所以service metasploit start 的方式不起作用。
+在kali 2.0中启动带数据库支持的MSF方式如下：
+1  首先启动postgresql数据库：/etc/init.d/postgresql start；或者 service postgresql start；
+2  初始化MSF数据库（关键步骤！）：msfdb init；
+3  运行msfconsole：msfconsole；
+4  在msf中查看数据库连接状态：db_status。
