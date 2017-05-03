@@ -92,6 +92,8 @@ update-flashplugin-nonfree --install
 
 方法二：
 下载flash linux压缩包
+flash_player_npapi_linux.x86_64.tar.gz
+选择NPAPI的压缩包（即里面含有usr的）
 解压后进入文件夹
 cp libflashplayer.so /usr/lib/mozilla/plugins/
 cp -r usr/* /usr
