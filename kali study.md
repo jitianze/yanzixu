@@ -37,9 +37,9 @@
 
 
 #### 1.1.1安装vmtool
+（方法1）apt-get install open-vm-tools-desktop fuse #kali2.0后最好使用此方法
 
-
-在虚拟机选项栏 找到虚拟机选项 下拉菜单中 找到 安装vmtool 
+（方法2）在虚拟机选项栏 找到虚拟机选项 下拉菜单中 找到 安装vmtool 
 在空白处右键  在终端打开
  先 ls 查看下 当前目录下的所有文件 
  切换到vm目录 执行安装文件  
