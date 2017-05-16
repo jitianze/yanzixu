@@ -215,3 +215,144 @@ kali 2.0 已经没有metasploit 这个服务了，所以service metasploit start
 3  运行msfconsole：msfconsole；
 
 4  在msf中查看数据库连接状态：db_status。
+
+
+## kali亮度调节
+
+#echo 10>/sys/class/backlight/intel_backlight/backlightness
+
+debian8系统，存在很多不兼容问题，官方更新较慢，但是电脑的硬件，更新快，很多驱动都无法在系统安装时给装好，我装debian8系统时，出了很多问题。
+
+例如，没有声音，没有wifi，没有亮度调节，中文输入法问题等等。我搞了很久，才把这个系统完美的装在我的电脑上。
+
+     本文主要分享，我如何解决dell电脑 debian8系统,gnome亮度调节问题，以后有时间在写其他的几个问题解决经验，纯属个人经验，有叙述不当的地方，请包容，指点。
+
+步骤还是很全的，请根据编号，进行查看。
+
+在解决问题前，大家可以更新一下源http://guanglin.blog.51cto.com/3038587/1689670，和系统。
+
+#gedit  /etc/apt/sources.list
+
+把163源，添加到末尾，保存退出；
+
+#aptitude update     //可以多执行几次，有些源有时连不上的，就自动忽略了；
+
+#apt-get install firmware-Linux-free
+
+#apt-get install firmware-linux
+
+#apt-get install firmware-linux-nonfree
+
+#aptitude update&&aptitude upgrade
+
+#reboot
+
+重启时等待系统更新自动关闭，不要强制关机；
+
+1,查看系统是否安转了相应驱动
+
+~su
+
+#cd /sys/class/backlight
+
+#ls
+
+1.1如果显示为  apci_video0
+
+说明系统未能正确识别，电脑的驱动。
+
+#vi  /etc/default/grub
+
+修改GRUB_CMDLINE_LINUX=“”为
+
+        GRUB_CMDLINE_LINUX="apci_osi=Linux apci_backlight=vendor"
+
+#update-grub
+
+#reboot
+
+重启后
+
+~su
+
+#cd /sys/class/backlight
+
+#ls
+
+1.1 ,如果显示为 apci_viedo0 和另一个文件夹，如intel_backlight   ,下面将全部用该文件名举例子，其他的适用，如dell_backlight
+
+恭喜你，系统已经识别到了你的显卡驱动。（每个电脑显示的文件都不同，大家自行举一反三）
+
+如果可以通过FN+亮度按键调节   over；
+
+1.2，如果不可以则不能调节的原因可能是，我们调节亮度时，系统只能修改apci_viedo0/backlightness，而不能修改Intel_backlight/backlightness
+
+而起作用的是后者；
+
+可以自己测试：
+
+#cat  /sys/class/backlight/apci_video0/backlightness
+
+按一下fn+亮度按键。在执行上一个命令。=，你会发现，已经修改。
+
+但是真正能修改背景亮度的是Intel_backlight/backlightness
+
+可以自行测试：
+
+#echo 10>/sys/class/backlight/intel_backlight/backlightness
+
+2，如果1.2测试成功，已经成功一半了。接下来有三种方案
+
+2.1，我们调节亮度时，可以执行命令直接调节：
+
+#sudo echo 10>/sys/class/backlight/intel_backlight/backlightness
+
+2.2,我们也可以写一个shell，去控制,这个简单的shel我就不写出来了，根据以上内容你可以写出来的，我相信你。
+
+2.3，就希望通过系统的调节条和fn+按键调节（像我这样的吹毛求疵的，悲剧是，试了很多，都失败了，还重装了几次系统）
+
+但是我最终还是解决了这个问题，请看：
+
+原理就是，我们调用系统的机制来完成这个事，具体什么机制我也不懂，类似select轮训资源，等待资源就绪，在执行相关动作的机制吧，我们就叫它弯道超车吧
+
+2.3.1，在/etc/udev/rules.d/目录创建一个规则：（改规则就是当我们改变系统亮度条或者fn+亮度键时，执行后面的shell程序）
+
+#sudo vi  /etc/udev/rules.d/99-writemybacklight.rules   
+
+写上 SUBSYSTEM=="backlight", ACTION=="change", RUN+="/usr/sbin/writemybacklight.sh"
+
+我们在/usr/sbin/下新建一个 /writemybacklight.sh                                           / /shell程序可以自己命名，但要和上面保持一致
+
+#sudo vi /usr/sbin/writemybacklight.sh    
+
+写上
+
+#!/bin/bash
+intelmaxbrightness=`cat /sys/class/backlight/intel_backlight/max_brightness`
+acpimaxbrightness=`cat /sys/class/backlight/acpi_video0/max_brightness`
+scale=$(intelmaxbrightness/acpimaxbrightness)
+acpibrightness=`cat /sys/class/backlight/acpi_video0/brightness`
+newintelbrightness=$(acpibrightness*scale)
+curintelbrightness=`cat /sys/class/backlight/intel_backlight/actual_brightness`
+if [ $newintelbrightness -ne $curintelbrightness ]
+then
+echo $newintelbrightness > /sys/class/backlight/intel_backlight/brightness
+fi
+exit 0
+
+这个shell'程序借鉴http://forum.ubuntu.org.cn/viewtopic.PHP?t=438341&p=2995988，该网站给的不能直接用，shell有问题，这是我修改了以后的。纯手打的，可能也有问题，只要你读懂这个shell，你就可以根据你的目录自行写出了。
+
+写好后，保存退出，改一下权限
+
+#chmod 777 /usr/sbin/writemybacklight.sh   
+可以用你的亮度进度条试试了，是不是很开心呢。
+
+3，如果你执行1之后，只有一个目录名，如dell_backlight.
+
+请执行辅助那几部，执行后，会多出一个目录，如radeon_pl0,
+
+这个两个目录的dell_backlight相当于apci_video0,radeon_pl0相当于intel_backlight.
+
+继续执行1之后的步骤测试。
+
+
