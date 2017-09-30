@@ -10,7 +10,7 @@ s= socket.socket()
 host="www.baidu.com"
 port=443
 s.connect((host,port))
-s.send("xuziyan")
+s.send("nihao")
 baner=s.recv(1024)
 if baner:
 	print baner
